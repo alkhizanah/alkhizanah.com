@@ -1,0 +1,22 @@
+title: Al Khizanah
+subtitle: A group of people gathered to make software
+url: ""
+baseurl: ""
+organization_github: https://github.com/alkhizanah
+markdown: kramdown
+permalink: /posts/:title/
+collections:
+  docs:
+    output: true
+    permalink: /docs/:name/
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: "docs"
+    values:
+      layout: doc

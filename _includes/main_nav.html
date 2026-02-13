@@ -1,0 +1,19 @@
+<header class="main-header">
+  <div class="main-nav wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+        <li><a href="{{ '/posts/' | relative_url }}">Posts</a></li>
+        <li><a href="{{ '/about-contribution/' | relative_url }}">About And Contribution</a></li>
+        <li><a href="{{ site.organization_github }}" target="_blank" rel="noreferrer">GitHub Org</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch between light and dark mode">
+      Toggle theme
+    </button>
+  </div>
+  <div class="sub-nav wrap">
+    <p>{{ include.subnav_text }}</p>
+  </div>
+</header>

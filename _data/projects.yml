@@ -1,0 +1,24 @@
+- name: Al Khizanah Core
+  description: Core tooling and foundational packages maintained by the Al Khizanah organization.
+  repo_url: https://github.com/alkhizanah/al-khizanah-core
+  docs_url: /docs/al-khizanah-core/
+  stars: 0
+  forks: 0
+- name: Al Khizanah Web
+  description: Web-focused applications and templates for community-driven products.
+  repo_url: https://github.com/alkhizanah/al-khizanah-web
+  docs_url: /docs/al-khizanah-web/
+  stars: 0
+  forks: 0
+- name: Al Khizanah API
+  description: APIs and services that power shared organization features and integrations.
+  repo_url: https://github.com/alkhizanah/al-khizanah-api
+  docs_url: /docs/al-khizanah-api/
+  stars: 0
+  forks: 0
+- name: Al Khizanah Labs
+  description: Experimental prototypes and research projects from the organization team.
+  repo_url: https://github.com/alkhizanah/al-khizanah-labs
+  docs_url: /docs/al-khizanah-labs/
+  stars: 0
+  forks: 0
