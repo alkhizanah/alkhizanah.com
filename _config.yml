@@ -1,14 +1,19 @@
 title: Al Khizanah
 subtitle: A group of people gathered to make software
-url: ""
-baseurl: ""
+
+url: "https://saeeedhany.github.io"
+baseurl: "/alkhizanah.com"
+
 organization_github: https://github.com/alkhizanah
+
 markdown: kramdown
 permalink: /posts/:title/
+
 collections:
   docs:
     output: true
     permalink: /docs/:name/
+
 defaults:
   - scope:
       path: ""
@@ -20,3 +25,4 @@ defaults:
       type: "docs"
     values:
       layout: doc
+
