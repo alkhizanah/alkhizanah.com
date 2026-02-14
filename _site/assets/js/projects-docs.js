@@ -241,9 +241,12 @@
             const files = await getDocFiles(projectId);
 
             if (files.length === 0) {
+                const project = projects[projectId];
                 contentContainer.innerHTML = `
 <div class="loading-content">
-    <p>No documentation available yet for this project.</p>
+  <h2>Documentation Coming Soon</h2>
+  <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
+  <p>Check out the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
 </div>
 `;
                 updateTOC([]);
@@ -264,9 +267,12 @@
             }
 
             if (htmlContent === '') {
+                const project = projects[projectId];
                 contentContainer.innerHTML = `
 <div class="loading-content">
-<p>Documentation files could not be loaded. Please check the console for errors.</p>
+  <h2>Documentation Coming Soon</h2>
+  <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
+  <p>In the meantime, check out the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
 </div>
 `;
                 updateTOC([]);
@@ -277,9 +283,12 @@
 
         } catch (error) {
             console.error('Error loading documentation:', error);
+            const project = projects[projectId];
             contentContainer.innerHTML = `
 <div class="loading-content">
-    <p>Error loading documentation. Please try again later.</p>
+  <h2>Documentation Coming Soon</h2>
+  <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
+  <p>Visit the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
 </div>
 `;
             updateTOC([]);
@@ -288,46 +297,52 @@
 
     // Get documentation files for a project
     async function getDocFiles(projectId) {
-        // Use relative paths from the site root
+        // Get baseurl from meta tag
+        const baseurl = document.querySelector('meta[name="baseurl"]')?.content || '';
+
         const fileMap = {
             'nur': [
-                '/docs/nur/docs/installation',
-                '/docs/nur/docs/syntax',
-                '/docs/nur/docs/data-types',
-                '/docs/nur/docs/builtins/global',
-                '/docs/nur/docs/builtins/io',
-                '/docs/nur/docs/builtins/fs',
-                '/docs/nur/docs/builtins/math',
-                '/docs/nur/docs/builtins/os',
-                '/docs/nur/docs/builtins/process',
-                '/docs/nur/docs/builtins/shell',
-                '/docs/nur/docs/builtins/time',
-                '/docs/nur/docs/builtins/threading',
-                '/docs/nur/docs/builtins/unicode',
-                '/docs/nur/docs/builtins/ffi'
+                `${baseurl}/docs/nur/docs/installation.html`,
+                `${baseurl}/docs/nur/docs/syntax.html`,
+                `${baseurl}/docs/nur/docs/data-types.html`,
+                `${baseurl}/docs/nur/docs/builtins/global.html`,
+                `${baseurl}/docs/nur/docs/builtins/io.html`,
+                `${baseurl}/docs/nur/docs/builtins/fs.html`,
+                `${baseurl}/docs/nur/docs/builtins/math.html`,
+                `${baseurl}/docs/nur/docs/builtins/os.html`,
+                `${baseurl}/docs/nur/docs/builtins/process.html`,
+                `${baseurl}/docs/nur/docs/builtins/shell.html`,
+                `${baseurl}/docs/nur/docs/builtins/time.html`,
+                `${baseurl}/docs/nur/docs/builtins/threading.html`,
+                `${baseurl}/docs/nur/docs/builtins/unicode.html`,
+                `${baseurl}/docs/nur/docs/builtins/ffi.html`
             ],
-            'bento': ['/docs/bento/readme'],
-            'qalam': ['/docs/qalam/readme'],
-            'tree-sitter-nur': ['/docs/tree-sitter-nur/readme']
+            'bento': [`${baseurl}/docs/bento/readme.html`],
+            'qalam': [`${baseurl}/docs/qalam/readme.html`],
+            'tree-sitter-nur': [`${baseurl}/docs/tree-sitter-nur/readme.html`]
         };
 
         return fileMap[projectId] || [];
     }
 
-    // Fetch markdown file
+    // Fetch HTML documentation file
     async function fetchMarkdown(filePath) {
         try {
+            console.log(`Attempting to fetch: ${filePath}`);
             const response = await fetch(filePath);
-            if (!response.ok) {
-                console.error(`Failed to fetch ${filePath}: ${response.status} ${response.statusText}`);
+            if (response.ok) {
+                console.log(`✓ Successfully loaded: ${filePath}`);
+                return await response.text();
+            } else {
+                console.error(`Failed to fetch ${filePath}: ${response.status}`);
                 return null;
             }
-            return await response.text();
         } catch (error) {
             console.error(`Error fetching ${filePath}:`, error);
             return null;
         }
     }
+
 
     // Simple syntax highlighting
     function highlightCode(code, lang) {

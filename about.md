@@ -4,26 +4,113 @@ title: About
 permalink: /about/
 ---
 
-<section class="wrap page fade-in">
-  <h1>About Al Khizanah</h1>
-  <p>Al Khizanah is an open-source software group. We build practical tools, improve developer workflows, and publish documentation that is easy to use and maintain.</p>
+<!-- Hero Section -->
+<section class="about-hero wrap">
+  <div class="about-hero-content fade-in">
+    <h1>About Al Khizanah</h1>
+    <p class="about-lead">A collective of developers building practical tools, shared infrastructure, and open documentation for reliable software delivery.</p>
+  </div>
+</section>
 
-  <h2>What we focus on</h2>
-  <ul>
-    <li>Developer tooling that is fast, reliable, and simple</li>
-    <li>Readable documentation for real-world usage</li>
-    <li>Steady, community-driven improvement across our projects</li>
-  </ul>
+<!-- Main Content -->
+<section class="about-content wrap">
 
-  <h2>How to contribute</h2>
-  <p>We welcome contributions from everyone. A few helpful guidelines:</p>
-  <ul>
-    <li>Open an issue first for large or breaking changes</li>
-    <li>Keep pull requests focused and include docs updates when needed</li>
-    <li>Follow project conventions and write clear commit messages</li>
-    <li>Be respectful and collaborative during review</li>
-  </ul>
+  <!-- Mission Card -->
+  <div class="about-card fade-in" style="animation-delay: 0.1s">
+    <div class="about-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5"/>
+        <path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div class="about-card-content">
+      <h2>Our Mission</h2>
+      <p>We believe in building software that matters. Our focus is on creating tools and solutions that solve real problems and make developers' lives easier.</p>
+    </div>
+  </div>
 
-  <h2>Get in Touch</h2>
-  <p>If you want to collaborate, visit our <a href="{{ site.organization_github }}" class="text-link">GitHub organization</a> and open an issue or discussion in any repository.</p>
+  <!-- Values Grid -->
+  <div class="about-values fade-in" style="animation-delay: 0.2s">
+    <h2 class="section-title">What We Value</h2>
+    <div class="values-grid">
+      <div class="value-item">
+        <h3>Purpose-Driven</h3>
+        <p>Every project addresses real-world challenges with practical solutions</p>
+      </div>
+      <div class="value-item">
+        <h3>Open Source</h3>
+        <p>Transparent development with community collaboration at the core</p>
+      </div>
+      <div class="value-item">
+        <h3>Quality First</h3>
+        <p>Well-documented, tested, and maintainable code as standard</p>
+      </div>
+      <div class="value-item">
+        <h3>Collaborative</h3>
+        <p>Building together through shared knowledge and mutual respect</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contribution Section -->
+  <div class="about-card about-contribute fade-in" style="animation-delay: 0.3s">
+    <div class="about-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="16"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+    </div>
+    <div class="about-card-content">
+      <h2>Contribution Guidelines</h2>
+      <p>We welcome contributions from the community. Here's how to get involved:</p>
+      <div class="contribution-steps">
+        <div class="contribution-step">
+          <span class="step-number">1</span>
+          <div class="step-content">
+            <h4>Start a Discussion</h4>
+            <p>Open an issue before implementing large changes to align on approach</p>
+          </div>
+        </div>
+        <div class="contribution-step">
+          <span class="step-number">2</span>
+          <div class="step-content">
+            <h4>Keep It Focused</h4>
+            <p>Submit focused pull requests with clear documentation updates</p>
+          </div>
+        </div>
+        <div class="contribution-step">
+          <span class="step-number">3</span>
+          <div class="step-content">
+            <h4>Follow Standards</h4>
+            <p>Use consistent coding styles and write meaningful commit messages</p>
+          </div>
+        </div>
+        <div class="contribution-step">
+          <span class="step-number">4</span>
+          <div class="step-content">
+            <h4>Stay Engaged</h4>
+            <p>Respond to feedback promptly and keep all communication respectful</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="about-cta fade-in" style="animation-delay: 0.4s">
+    <h2>Get in Touch</h2>
+    <p>Interested in collaborating or have questions about our projects?</p>
+    <div class="cta-actions">
+      <a href="{{ site.organization_github }}" class="button button-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
+        Visit Our GitHub
+      </a>
+      <a href="{{ '/projects/' | relative_url }}" class="button button-secondary">Explore Projects</a>
+    </div>
+  </div>
+
 </section>
