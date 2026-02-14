@@ -1,322 +1,232 @@
 (() => {
-    // Project configuration
+
+    // Configuration
+
     const projects = {
         nur: {
             repo: 'alkhizanah/nur',
-            description: 'A modern, elegant programming language designed for clarity and expressiveness with powerful features for systems and application development.',
-            topics: ['compiler', 'language', 'systems'],
-            docsPath: '/nur/docs/'
+            description: 'A scripting language for ease of use.',
+            topics: ['compiler', 'language', 'systems']
         },
         fajr: {
             repo: 'alkhizanah/fajr',
-            description: 'A blazing fast package manager for the Nur programming language.',
-            topics: ['package-manager', 'nur', 'tooling'],
-            docsPath: '/fajr/'
+            description: 'A modern and elegant operating system for programmers.',
+            topics: ['package-manager', 'nur', 'tooling']
         },
         way: {
             repo: 'alkhizanah/way',
-            description: 'A modern web framework for Nur.',
-            topics: ['web', 'framework', 'nur'],
-            docsPath: '/way/'
+            description: 'A systems programming language for the impatient.',
+            topics: ['web', 'framework', 'nur']
         },
         qalam: {
             repo: 'alkhizanah/qalam',
-            description: 'A beautiful documentation generator for Nur projects.',
-            topics: ['documentation', 'generator', 'nur'],
-            docsPath: '/qalam/'
-        },
-        bento: {
-            repo: 'alkhizanah/bento',
-            description: 'A component library for modern web applications.',
-            topics: ['ui', 'components', 'web'],
-            docsPath: '/bento/'
+            description: 'A modal text editor.',
+            topics: ['documentation', 'generator', 'nur']
         },
         'tree-sitter-nur': {
             repo: 'alkhizanah/tree-sitter-nur',
-            description: 'Tree-sitter grammar for the Nur programming language.',
-            topics: ['tree-sitter', 'parser', 'nur'],
-            docsPath: '/tree-sitter-nur/'
+            description: 'Nur language grammar for tree-sitter.',
+            topics: ['tree-sitter', 'parser', 'nur']
+        },
+        bento: {
+            repo: 'alkhizanah/bento',
+            description: 'A collection of macros intended at making assembly more convenient to write and a bit closer to C. Only for x86_64 linux and the FASM assembler (for now).',
+            topics: ['ui', 'components', 'web']
         },
         aqsa: {
             repo: 'alkhizanah/aqsa',
-            description: 'A test framework for Nur.',
-            topics: ['testing', 'framework', 'nur'],
-            docsPath: '/aqsa/'
+            description: 'A fast red-teaming toolkit featuring a very flexible module interface.',
+            topics: ['testing', 'framework', 'nur']
         },
         compute: {
             repo: 'alkhizanah/compute',
-            description: 'High-performance computing library for Nur.',
-            topics: ['compute', 'performance', 'nur'],
-            docsPath: '/compute/'
+            description: 'An attempt to make a computer algebra system.',
+            topics: ['compute', 'performance', 'nur']
         }
     };
 
-    let currentProject = 'nur';
-    let currentDocs = {};
+    // Initialization
 
-    // Initialize
     function init() {
         setupTabListeners();
-
-        // Check for hash in URL to load specific project
-        const hash = window.location.hash.slice(1); // Remove the # symbol
-        const projectId = hash || 'nur'; // Default to 'nur' if no hash
-
-        // Find and activate the correct tab
+        const hash = window.location.hash.slice(1);
+        const projectId = hash || 'nur';
         const targetTab = document.querySelector(`.project-tab[data-project="${projectId}"]`);
+
         if (targetTab) {
-            // Remove active from all tabs
             document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
-            // Add active to target tab
             targetTab.classList.add('active');
-            // Load the project
             loadProject(projectId);
         } else {
-            // Fallback to nur if project not found
             loadProject('nur');
         }
     }
 
-    // Setup tab click listeners
+    // Tab Management
+
     function setupTabListeners() {
-        const tabs = document.querySelectorAll('.project-tab');
-        tabs.forEach(tab => {
+        document.querySelectorAll('.project-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 const projectId = tab.dataset.project;
-                switchTab(tab, projectId);
+                document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                loadProject(projectId);
             });
         });
     }
 
-    // Switch active tab
-    function switchTab(clickedTab, projectId) {
-        // Update tab states
-        document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
-        clickedTab.classList.add('active');
-
-        // Load new project
-        currentProject = projectId;
-        loadProject(projectId);
-    }
-
-    // Load project documentation
-    async function loadProject(projectId) {
+    function loadProject(projectId) {
         const project = projects[projectId];
         if (!project) return;
 
-        // Update repo card
         updateRepoCard(project);
-
-        // Load documentation files
-        await loadDocumentation(projectId, project.docsPath);
+        loadDocumentation(projectId);
     }
 
-    // Update GitHub repo card
+    // Repo Card Updates
+
     function updateRepoCard(project) {
         const [owner, repo] = project.repo.split('/');
-        const repoCard = document.getElementById('repoCard');
 
-        // Update data attribute for theme.js to fetch stats
-        repoCard.setAttribute('data-github-repo', project.repo);
-
-        // Update the repo link href
+        // Update repo link and name
         const repoLink = document.getElementById('repoLink');
-        repoLink.href = `https://github.com/${project.repo}`;
+        const repoName = document.getElementById('repoName');
+        if (repoLink) repoLink.href = `https://github.com/${project.repo}`;
+        if (repoName) {
+            repoName.innerHTML = `<span class="repo-owner">${owner}</span>/<span class="repo-project">${repo}</span>`;
+        }
 
-        // Update the repo name inside the link
-        document.getElementById('repoName').innerHTML = `
-<span class="repo-owner">${owner}</span>/<span class="repo-project">${repo}</span>
-`;
-
-        document.getElementById('repoDescription').textContent = project.description;
+        // Update description
+        const repoDesc = document.getElementById('repoDescription');
+        if (repoDesc) repoDesc.textContent = project.description;
 
         // Update topics
         const topicsContainer = document.getElementById('repoTopics');
-        topicsContainer.innerHTML = project.topics
-            .map(topic => `<span class="topic">${topic}</span>`)
-            .join('');
+        if (topicsContainer) {
+            topicsContainer.innerHTML = project.topics
+                .map(topic => `<span class="topic">${topic}</span>`)
+                .join('');
+        }
 
-        // Manually fetch and update stats
-        fetchGitHubStatsForCard(project.repo);
+        // Update data attribute
+        const repoCard = document.getElementById('repoCard');
+        if (repoCard) {
+            repoCard.setAttribute('data-github-repo', project.repo);
+        }
+
+        // Fetch and update stats
+        fetchStats(project.repo);
     }
 
-    // Fetch GitHub stats for the repo card
-    async function fetchGitHubStatsForCard(repo) {
+    // Simple Stats Fetching
+
+    async function fetchStats(repo) {
         const statsContainer = document.getElementById('repoStats');
         if (!statsContainer) return;
 
-        statsContainer.innerHTML = '<span class="loading-stats">Loading stats...</span>';
-
         // Method 1: Try GitHub API directly
         try {
-            console.log(`Attempting to fetch stats for ${repo}...`);
             const response = await fetch(`https://api.github.com/repos/${repo}`, {
                 headers: {
                     'Accept': 'application/vnd.github.v3+json',
                     'User-Agent': 'Mozilla/5.0'
                 }
             });
-
             if (response.ok) {
                 const data = await response.json();
-                console.log(`Successfully fetched stats for ${repo}:`, data);
-                displayStats(data.stargazers_count, data.forks_count);
+                updateStatsDisplay(data.stargazers_count, data.forks_count);
+                console.log(`✓ Loaded stats for ${repo}`);
                 return;
-            } else {
-                console.warn(`GitHub API returned ${response.status}: ${response.statusText}`);
             }
         } catch (error) {
-            console.warn('Method 1 (Direct API) failed:', error.message);
+            console.warn('Direct API failed:', error.message);
         }
 
         // Method 2: Try CORS proxy
         try {
-            console.log('Trying CORS proxy...');
-            const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=https://api.github.com/repos/${repo}`;
-            const response = await fetch(proxyUrl);
-
+            const response = await fetch(`https://api.codetabs.com/v1/proxy?quest=https://api.github.com/repos/${repo}`);
             if (response.ok) {
                 const data = await response.json();
-                console.log('CORS proxy successful:', data);
-                displayStats(data.stargazers_count, data.forks_count);
+                updateStatsDisplay(data.stargazers_count, data.forks_count);
+                console.log(`✓ Loaded stats via proxy for ${repo}`);
                 return;
             }
         } catch (error) {
-            console.warn('Method 2 (CORS proxy) failed:', error.message);
+            console.warn('Proxy failed:', error.message);
         }
 
-        // Method 3: Try alternate CORS proxy
-        try {
-            console.log('Trying alternate CORS proxy...');
-            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(`https://api.github.com/repos/${repo}`)}`;
-            const response = await fetch(proxyUrl);
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Alternate CORS proxy successful:', data);
-                displayStats(data.stargazers_count, data.forks_count);
-                return;
-            }
-        } catch (error) {
-            console.warn('Method 3 (Alternate CORS proxy) failed:', error.message);
-        }
-
-        // All methods failed - show placeholder
-        console.error('All methods failed to fetch GitHub stats');
-        displayStats(null, null);
+        // All methods failed - show placeholders
+        console.error('All methods failed to fetch stats');
+        updateStatsDisplay(null, null);
     }
 
-    // Helper function to display stats
-    function displayStats(stars, forks) {
+    function updateStatsDisplay(stars, forks) {
         const statsContainer = document.getElementById('repoStats');
+        if (!statsContainer) return;
+
         const starsText = stars !== null ? stars.toLocaleString() : '--';
         const forksText = forks !== null ? forks.toLocaleString() : '--';
 
-        document.getElementById('starsCount').textContent = starsText;
-        document.getElementById('forksCount').textContent = forksText;
-
-        statsContainer.innerHTML = `
-<div class="stat">
-    <svg viewBox="0 0 16 16" fill="currentColor">
-        <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/>
-    </svg>
-    <span class="stat-count">${starsText}</span>
-</div>
-<div class="stat">
-    <svg viewBox="0 0 16 16" fill="currentColor">
-        <path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"/>
-    </svg>
-    <span class="stat-count">${forksText}</span>
-</div>
-`;
+        const statSpans = statsContainer.querySelectorAll('.stat-count');
+        if (statSpans.length >= 2) {
+            statSpans[0].textContent = starsText;
+            statSpans[1].textContent = forksText;
+        }
     }
 
-    // Load documentation from _docs folder
-    async function loadDocumentation(projectId, docsPath) {
+    // Documentation Loading
+
+    async function loadDocumentation(projectId) {
         const contentContainer = document.getElementById('docsContent');
+        if (!contentContainer) return;
+
         contentContainer.innerHTML = '<div class="loading-content"><p>Loading documentation...</p></div>';
 
         try {
-            // Determine which files to load based on project
-            const files = await getDocFiles(projectId);
+            const files = getDocFiles(projectId);
 
             if (files.length === 0) {
-                const project = projects[projectId];
-                contentContainer.innerHTML = `
-<div class="loading-content">
-  <h2>Documentation Coming Soon</h2>
-  <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
-  <p>Check out the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
-</div>
-`;
+                showComingSoon(projectId);
                 updateTOC([]);
                 return;
             }
 
-            // Load and render all markdown files
             let htmlContent = '';
             const headings = [];
 
             for (const file of files) {
-                const markdown = await fetchMarkdown(file);
-                if (markdown) {
-                    const { html, toc } = await renderMarkdown(markdown);
+                const content = await fetchDocFile(file);
+                if (content) {
+                    const { html, toc } = renderMarkdown(content);
                     htmlContent += html;
                     headings.push(...toc);
                 }
             }
 
             if (htmlContent === '') {
-                const project = projects[projectId];
-                contentContainer.innerHTML = `
-<div class="loading-content">
-  <h2>Documentation Coming Soon</h2>
-  <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
-  <p>In the meantime, check out the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
-</div>
-`;
+                showComingSoon(projectId);
                 updateTOC([]);
             } else {
                 contentContainer.innerHTML = htmlContent;
                 updateTOC(headings);
             }
-
         } catch (error) {
             console.error('Error loading documentation:', error);
-            const project = projects[projectId];
-            contentContainer.innerHTML = `
-<div class="loading-content">
-  <h2>Documentation Coming Soon</h2>
-  <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
-  <p>Visit the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
-</div>
-`;
+            showComingSoon(projectId);
             updateTOC([]);
         }
     }
 
-    // Get documentation files for a project
-    async function getDocFiles(projectId) {
-        // Get baseurl from meta tag
+    function getDocFiles(projectId) {
         const baseurl = document.querySelector('meta[name="baseurl"]')?.content || '';
 
         const fileMap = {
             'nur': [
-                `${baseurl}/docs/nur/docs/installation.html`,
-                `${baseurl}/docs/nur/docs/syntax.html`,
-                `${baseurl}/docs/nur/docs/data-types.html`,
-                `${baseurl}/docs/nur/docs/builtins/global.html`,
-                `${baseurl}/docs/nur/docs/builtins/io.html`,
-                `${baseurl}/docs/nur/docs/builtins/fs.html`,
-                `${baseurl}/docs/nur/docs/builtins/math.html`,
-                `${baseurl}/docs/nur/docs/builtins/os.html`,
-                `${baseurl}/docs/nur/docs/builtins/process.html`,
-                `${baseurl}/docs/nur/docs/builtins/shell.html`,
-                `${baseurl}/docs/nur/docs/builtins/time.html`,
-                `${baseurl}/docs/nur/docs/builtins/threading.html`,
-                `${baseurl}/docs/nur/docs/builtins/unicode.html`,
-                `${baseurl}/docs/nur/docs/builtins/ffi.html`
-            ],
+                'installation', 'syntax', 'data-types',
+                'builtins/global', 'builtins/io', 'builtins/fs', 'builtins/math',
+                'builtins/os', 'builtins/process', 'builtins/shell', 'builtins/time',
+                'builtins/threading', 'builtins/unicode', 'builtins/ffi'
+            ].map(f => `${baseurl}/docs/nur/docs/${f}.html`),
             'bento': [`${baseurl}/docs/bento/readme.html`],
             'qalam': [`${baseurl}/docs/qalam/readme.html`],
             'tree-sitter-nur': [`${baseurl}/docs/tree-sitter-nur/readme.html`]
@@ -325,72 +235,44 @@
         return fileMap[projectId] || [];
     }
 
-    // Fetch HTML documentation file
-    async function fetchMarkdown(filePath) {
+    async function fetchDocFile(filePath) {
         try {
-            console.log(`Attempting to fetch: ${filePath}`);
             const response = await fetch(filePath);
             if (response.ok) {
-                console.log(`✓ Successfully loaded: ${filePath}`);
+                console.log(`✓ Loaded: ${filePath}`);
                 return await response.text();
-            } else {
-                console.error(`Failed to fetch ${filePath}: ${response.status}`);
-                return null;
             }
+            console.error(`Failed to fetch ${filePath}: ${response.status}`);
+            return null;
         } catch (error) {
             console.error(`Error fetching ${filePath}:`, error);
             return null;
         }
     }
 
-
-    // Simple syntax highlighting
-    function highlightCode(code, lang) {
-        if (!lang) return escapeHtml(code);
-
-        let highlighted = escapeHtml(code);
-
-        // Keywords for common languages
-        const keywords = {
-            'nur': ['fn', 'let', 'const', 'if', 'else', 'while', 'for', 'return', 'import', 'export', 'class', 'struct', 'enum', 'match', 'case', 'break', 'continue', 'try', 'catch', 'throw', 'async', 'await', 'pub', 'priv', 'mut', 'ref'],
-            'javascript': ['const', 'let', 'var', 'function', 'class', 'if', 'else', 'for', 'while', 'return', 'import', 'export', 'async', 'await', 'try', 'catch', 'throw', 'new', 'this', 'super'],
-            'python': ['def', 'class', 'if', 'elif', 'else', 'for', 'while', 'return', 'import', 'from', 'as', 'try', 'except', 'finally', 'with', 'async', 'await', 'lambda', 'yield'],
-            'rust': ['fn', 'let', 'mut', 'const', 'if', 'else', 'match', 'while', 'for', 'loop', 'return', 'impl', 'trait', 'struct', 'enum', 'pub', 'use', 'mod', 'async', 'await'],
-            'c': ['int', 'char', 'float', 'double', 'void', 'if', 'else', 'for', 'while', 'return', 'struct', 'typedef', 'const', 'static', 'extern'],
-            'bash': ['if', 'then', 'else', 'fi', 'for', 'while', 'do', 'done', 'case', 'esac', 'function', 'return', 'echo', 'exit']
-        };
-
-        const langKeywords = keywords[lang.toLowerCase()] || keywords['nur'];
-
-        // Highlight strings
-        highlighted = highlighted.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="string">$&</span>');
-
-        // Highlight comments (// and #)
-        highlighted = highlighted.replace(/(\/\/.*$|#.*$)/gm, '<span class="comment">$1</span>');
-
-        // Highlight keywords
-        langKeywords.forEach(keyword => {
-            const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
-            highlighted = highlighted.replace(regex, '<span class="keyword">$1</span>');
-        });
-
-        // Highlight numbers
-        highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
-
-        // Highlight function calls
-        highlighted = highlighted.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*(?=\()/g, '<span class="function">$1</span>');
-
-        return highlighted;
+    function showComingSoon(projectId) {
+        const project = projects[projectId];
+        const contentContainer = document.getElementById('docsContent');
+        if (contentContainer && project) {
+            contentContainer.innerHTML = `
+<div class="loading-content">
+    <h2>Documentation Coming Soon</h2>
+    <p>Documentation for ${project.repo.split('/')[1]} is currently being prepared.</p>
+    <p>In the meantime, check out the <a href="https://github.com/${project.repo}" target="_blank" style="color: var(--accent);">GitHub repository</a> for more information.</p>
+</div>
+`;
+        }
     }
 
-    // Simple markdown to HTML converter
-    async function renderMarkdown(markdown) {
-        const lines = markdown.split('\n');
-        let html = '';
-        let inCodeBlock = false;
-        let codeBlockContent = '';
-        let codeBlockLang = '';
+    // Markdown Rendering
+
+    function renderMarkdown(markdown) {
         const headings = [];
+        let html = '';
+        const lines = markdown.split('\n');
+        let inCodeBlock = false;
+        let codeBlockLang = '';
+        let codeBlockContent = '';
 
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
@@ -402,11 +284,10 @@
                     codeBlockLang = line.slice(3).trim();
                     codeBlockContent = '';
                 } else {
-                    const highlightedCode = highlightCode(codeBlockContent, codeBlockLang);
-                    html += `<pre><code class="language-${codeBlockLang}">${highlightedCode}</code></pre>\n`;
+                    html += `<pre><code class="language-${codeBlockLang}">${highlightCode(codeBlockContent, codeBlockLang)}</code></pre>\n`;
                     inCodeBlock = false;
-                    codeBlockContent = '';
                     codeBlockLang = '';
+                    codeBlockContent = '';
                 }
                 continue;
             }
@@ -417,127 +298,116 @@
             }
 
             // Headings
-            if (line.startsWith('# ')) {
-                const text = line.slice(2);
-                const id = slugify(text);
-                headings.push({ level: 1, text, id });
-                html += `<h1 id="${id}">${text}</h1>\n`;
-            } else if (line.startsWith('## ')) {
-                const text = line.slice(3);
-                const id = slugify(text);
-                headings.push({ level: 2, text, id });
-                html += `<h2 id="${id}">${text}</h2>\n`;
-            } else if (line.startsWith('### ')) {
-                const text = line.slice(4);
-                const id = slugify(text);
-                headings.push({ level: 3, text, id });
-                html += `<h3 id="${id}">${text}</h3>\n`;
-            } else if (line.startsWith('#### ')) {
-                const text = line.slice(5);
-                const id = slugify(text);
-                headings.push({ level: 4, text, id });
-                html += `<h4 id="${id}">${text}</h4>\n`;
+            const headingMatch = line.match(/^(#{1,4})\s+(.+)$/);
+            if (headingMatch) {
+                const level = headingMatch[1].length;
+                const text = headingMatch[2];
+                const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+
+                headings.push({ id, text, level });
+                html += `<h${level} id="${id}">${text}</h${level}>\n`;
+                continue;
             }
+
             // Lists
-            else if (line.startsWith('- ') || line.startsWith('* ')) {
-                const nextLine = lines[i + 1];
-                if (i === 0 || (!lines[i - 1].startsWith('- ') && !lines[i - 1].startsWith('* '))) {
-                    html += '<ul>\n';
-                }
-                html += `<li>${processInlineMarkdown(line.slice(2))}</li>\n`;
-                if (!nextLine || (!nextLine.startsWith('- ') && !nextLine.startsWith('* '))) {
-                    html += '</ul>\n';
-                }
+            if (line.match(/^\d+\.\s/)) {
+                const content = line.replace(/^\d+\.\s/, '');
+                html += `<ol><li>${parseInline(content)}</li></ol>\n`;
+                continue;
             }
-            // Ordered lists
-            else if (/^\d+\. /.test(line)) {
-                const nextLine = lines[i + 1];
-                if (i === 0 || !/^\d+\. /.test(lines[i - 1])) {
-                    html += '<ol>\n';
-                }
-                html += `<li>${processInlineMarkdown(line.replace(/^\d+\. /, ''))}</li>\n`;
-                if (!nextLine || !/^\d+\. /.test(nextLine)) {
-                    html += '</ol>\n';
-                }
+            if (line.match(/^[-*]\s/)) {
+                const content = line.replace(/^[-*]\s/, '');
+                html += `<ul><li>${parseInline(content)}</li></ul>\n`;
+                continue;
             }
+
             // Blockquotes
-            else if (line.startsWith('> ')) {
-                html += `<blockquote>${processInlineMarkdown(line.slice(2))}</blockquote>\n`;
+            if (line.startsWith('>')) {
+                html += `<blockquote>${parseInline(line.slice(1).trim())}</blockquote>\n`;
+                continue;
             }
+
+            // Horizontal rules
+            if (line.match(/^---+$/)) {
+                html += '<hr>\n';
+                continue;
+            }
+
             // Paragraphs
-            else if (line.trim() !== '') {
-                html += `<p>${processInlineMarkdown(line)}</p>\n`;
+            if (line.trim()) {
+                html += `<p>${parseInline(line)}</p>\n`;
             }
         }
 
         return { html, toc: headings };
     }
 
-    // Process inline markdown (bold, italic, code, links)
-    function processInlineMarkdown(text) {
-        // Code
-        text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-        // Bold
-        text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-        text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
-        // Italic
-        text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-        text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
-        // Links
-        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
-        return text;
-    }
-
-    // Escape HTML
-    function escapeHtml(text) {
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
-    }
-
-    // Generate slug from text
-    function slugify(text) {
+    function parseInline(text) {
         return text
-            .toLowerCase()
-            .trim()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/[\s_-]+/g, '-')
-            .replace(/^-+|-+$/g, '');
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
     }
 
-    // Update table of contents
+    function highlightCode(code, lang) {
+        if (!lang) return escapeHtml(code);
+
+        const keywords = {
+            nur: /\b(fn|let|const|if|else|for|while|return|import|export|class|struct|enum|match|break|continue)\b/g,
+            javascript: /\b(function|const|let|var|if|else|for|while|return|import|export|class|async|await|try|catch)\b/g,
+            python: /\b(def|class|if|elif|else|for|while|return|import|from|try|except|with|as|lambda|yield)\b/g,
+            rust: /\b(fn|let|mut|const|if|else|for|while|return|use|mod|pub|struct|enum|impl|trait|match)\b/g,
+            c: /\b(int|char|float|double|void|if|else|for|while|return|struct|enum|typedef|const|static)\b/g,
+            bash: /\b(if|then|else|elif|fi|for|while|do|done|case|esac|function|return|exit)\b/g
+        };
+
+        let highlighted = escapeHtml(code);
+
+        if (keywords[lang]) {
+            highlighted = highlighted.replace(keywords[lang], '<span class="keyword">$&</span>');
+        }
+
+        highlighted = highlighted
+            .replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="string">$&</span>')
+            .replace(/\/\/.*$/gm, '<span class="comment">$&</span>')
+            .replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>')
+            .replace(/\b(\d+)\b/g, '<span class="number">$1</span>')
+            .replace(/\b([a-zA-Z_]\w*)\s*\(/g, '<span class="function">$1</span>(');
+
+        return highlighted;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Table of Contents
+
     function updateTOC(headings) {
         const tocNav = document.getElementById('tocNav');
+        if (!tocNav) return;
 
         if (headings.length === 0) {
             tocNav.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 1rem 0;">No sections available</p>';
             return;
         }
 
-        // Only show h2 and h3 in TOC
         const tocHeadings = headings.filter(h => h.level === 2 || h.level === 3);
 
         let html = '<ul>';
         tocHeadings.forEach(heading => {
-            const nestedClass = heading.level === 3 ? ' class="toc-nested"' : '';
             const indentStyle = heading.level === 3 ? ' style="padding-left: 1rem;"' : '';
-            html += `<li${indentStyle}><a href="#${heading.id}"${nestedClass}>${heading.text}</a></li>`;
+            html += `<li${indentStyle}><a href="#${heading.id}">${heading.text}</a></li>`;
         });
         html += '</ul>';
 
         tocNav.innerHTML = html;
-
-        // Add scroll spy
         setupScrollSpy(tocHeadings);
     }
 
-    // Setup scroll spy for TOC
     function setupScrollSpy(headings) {
         const tocLinks = document.querySelectorAll('.toc-nav a');
 
@@ -560,13 +430,12 @@
 
         headings.forEach(heading => {
             const element = document.getElementById(heading.id);
-            if (element) {
-                observer.observe(element);
-            }
+            if (element) observer.observe(element);
         });
     }
 
-    // Initialize when DOM is ready
+    // Start Application
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {

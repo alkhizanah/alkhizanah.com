@@ -1,7 +1,8 @@
-# alkhizanah.com
+# alkhizanah.github.io
 
-Awebsite for [Al Khizanah](https://github.com/alkhizanah) organization.
+A website for [Al Khizanah](https://github.com/alkhizanah) organization.
 
-This project started as an exploration. While browsing the organization and its repositories, I realized there was no central place that presents the work, documentation, and vision in a structured way. So I decided to build one.
+Saeed: This project started as an exploration. While browsing the organization and its repositories, I realized there was no central place that presents the work, documentation, and vision in a structured way. So I decided to build one.
 
-> Still a work in progress, *published early for visibility and iteration.*
+
+

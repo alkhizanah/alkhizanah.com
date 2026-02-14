@@ -25,7 +25,7 @@ title: Home
     <!-- Nur Project -->
     <article class="card fade-in" data-github-repo="alkhizanah/nur">
     <h3>Nur</h3>
-    <p>A modern, elegant programming language designed for clarity and expressiveness with powerful features for systems and application development.</p>
+    <p>A scripting language for ease of use</p>
     <div class="card-tags">
     <span class="tag">Compiler</span>
     <span class="tag">Language</span>
@@ -43,7 +43,7 @@ title: Home
     <!-- Fajr Project -->
     <article class="card fade-in" style="animation-delay: 0.1s" data-github-repo="alkhizanah/fajr">
     <h3>Fajr</h3>
-    <p>A fast and efficient build system that simplifies project compilation and dependency management with minimal configuration.</p>
+    <p>A modern and elegant operating system for programmers.</p>
     <div class="card-tags">
     <span class="tag">Build Tool</span>
     <span class="tag">CLI</span>
@@ -61,7 +61,7 @@ title: Home
     <!-- Way Project -->
     <article class="card fade-in" style="animation-delay: 0.2s" data-github-repo="alkhizanah/way">
     <h3>Way</h3>
-    <p>An innovative framework for building scalable and maintainable applications with modern development practices and patterns.</p>
+    <p>A systems programming language for the impatient.</p>
     <div class="card-tags">
     <span class="tag">Framework</span>
     <span class="tag">Architecture</span>
@@ -79,7 +79,7 @@ title: Home
     <!-- Qalam Project -->
     <article class="card fade-in" style="animation-delay: 0.3s" data-github-repo="alkhizanah/qalam">
     <h3>Qalam</h3>
-    <p>A powerful text editor and IDE designed for developers with advanced features, customization, and seamless workflow integration.</p>
+    <p>A modal text editor.</p>
     <div class="card-tags">
     <span class="tag">Editor</span>
     <span class="tag">IDE</span>

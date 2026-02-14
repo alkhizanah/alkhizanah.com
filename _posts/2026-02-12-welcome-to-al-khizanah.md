@@ -17,30 +17,6 @@ At Al Khizanah, we believe in building software that matters. Our focus is on cr
 - **Developer Experience**: Tools should be a joy to use, not a burden
 - **Community Driven**: We build together through collaboration and feedback
 
-## What We're Building
-
-Our initial focus is on the **Nur programming language** and its ecosystem. Nur is designed for clarity and expressiveness, with powerful features for both systems and application development.
-
-### Key Projects
-
-**Nur** - A modern programming language that prioritizes developer experience without sacrificing performance.
-
-**Fajr** - A fast and efficient build system that simplifies project compilation and dependency management.
-
-**Way** - An innovative framework for building scalable applications with modern development practices.
-
-## Example: Hello World in Nur
-
-Here's a simple example to give you a taste of Nur's syntax:
-
-```nur
-fn main() {
-    print("Hello, World!")
-}
-```
-
-Clean, readable, and straightforward. That's the Nur philosophy.
-
 ## Get Involved
 
 We're always looking for contributors, feedback, and ideas. Here's how you can get involved:
