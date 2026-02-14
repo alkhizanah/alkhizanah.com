@@ -45,8 +45,8 @@
         },
         mkc: {
             repo: 'alkhizanah/mkc',
-            description: 'An attempt to make a computer algebra system.',
-            topics: ['c', 'cpp', 'maker', 'etc..']
+            description: 'A straight-forward build tool',
+            topics: ['c', 'cpp', 'make']
         }
     };
 
