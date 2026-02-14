@@ -6,42 +6,47 @@
         nur: {
             repo: 'alkhizanah/nur',
             description: 'A scripting language for ease of use.',
-            topics: ['compiler', 'language', 'systems']
+            topics: ['programming language', 'interpreter', 'virtual-machine']
         },
         fajr: {
             repo: 'alkhizanah/fajr',
             description: 'A modern and elegant operating system for programmers.',
-            topics: ['package-manager', 'nur', 'tooling']
+            topics: ['operating system']
         },
         way: {
             repo: 'alkhizanah/way',
             description: 'A systems programming language for the impatient.',
-            topics: ['web', 'framework', 'nur']
+            topics: ['compiler', 'system-language']
         },
         qalam: {
             repo: 'alkhizanah/qalam',
             description: 'A modal text editor.',
-            topics: ['documentation', 'generator', 'nur']
+            topics: ['editor', 'tool']
         },
         'tree-sitter-nur': {
             repo: 'alkhizanah/tree-sitter-nur',
             description: 'Nur language grammar for tree-sitter.',
-            topics: ['tree-sitter', 'parser', 'nur']
+            topics: ['']
         },
         bento: {
             repo: 'alkhizanah/bento',
             description: 'A collection of macros intended at making assembly more convenient to write and a bit closer to C. Only for x86_64 linux and the FASM assembler (for now).',
-            topics: ['ui', 'components', 'web']
+            topics: ['assembly', 'fasm']
         },
         aqsa: {
             repo: 'alkhizanah/aqsa',
             description: 'A fast red-teaming toolkit featuring a very flexible module interface.',
-            topics: ['testing', 'framework', 'nur']
+            topics: ['']
         },
         compute: {
             repo: 'alkhizanah/compute',
             description: 'An attempt to make a computer algebra system.',
-            topics: ['compute', 'performance', 'nur']
+            topics: ['']
+        },
+        mkc: {
+            repo: 'alkhizanah/mkc',
+            description: 'An attempt to make a computer algebra system.',
+            topics: ['c', 'cpp', 'maker', 'etc..']
         }
     };
 
@@ -229,7 +234,8 @@
             ].map(f => `${baseurl}/docs/nur/docs/${f}.html`),
             'bento': [`${baseurl}/docs/bento/readme.html`],
             'qalam': [`${baseurl}/docs/qalam/readme.html`],
-            'tree-sitter-nur': [`${baseurl}/docs/tree-sitter-nur/readme.html`]
+            'tree-sitter-nur': [`${baseurl}/docs/tree-sitter-nur/readme.html`],
+            'mkc': [`${baseurl}/docs/mkc/mkc.html`]
         };
 
         return fileMap[projectId] || [];

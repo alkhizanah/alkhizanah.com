@@ -13,14 +13,15 @@ permalink: /projects/
 <nav class="project-tabs-nav" id="projectTabs">
     <div class="wrap">
         <div class="project-tabs">
-            <button class="project-tab active" data-project="nur">Nur</button>
-            <button class="project-tab" data-project="fajr">Fajr</button>
-            <button class="project-tab" data-project="way">Way</button>
-            <button class="project-tab" data-project="qalam">Qalam</button>
-            <button class="project-tab" data-project="bento">Bento</button>
-            <button class="project-tab" data-project="tree-sitter-nur">Tree-sitter Nur</button>
-            <button class="project-tab" data-project="aqsa">Aqsa</button>
-            <button class="project-tab" data-project="compute">Compute</button>
+            <button class="project-tab active" data-project="nur">nur</button>
+            <button class="project-tab" data-project="bento">bento</button>
+            <button class="project-tab" data-project="mkc">mkc</button>
+            <button class="project-tab" data-project="tree-sitter-nur">tree-sitter Nur</button>
+            <button class="project-tab" data-project="qalam">qalam</button>
+            <button class="project-tab" data-project="fajr">fajr</button>
+            <button class="project-tab" data-project="way">way</button>
+            <button class="project-tab" data-project="aqsa">aqsa</button>
+            <button class="project-tab" data-project="compute">compute</button>
         </div>
     </div>
 </nav>
