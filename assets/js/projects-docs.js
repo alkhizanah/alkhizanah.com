@@ -288,41 +288,52 @@
 
     // Get documentation files for a project
     async function getDocFiles(projectId) {
-        // Use relative paths from the site root
+        // Use relative paths so this works both locally and when hosted under a baseurl.
         const fileMap = {
             'nur': [
-                '/docs/nur/docs/installation',
-                '/docs/nur/docs/syntax',
-                '/docs/nur/docs/data-types',
-                '/docs/nur/docs/builtins/global',
-                '/docs/nur/docs/builtins/io',
-                '/docs/nur/docs/builtins/fs',
-                '/docs/nur/docs/builtins/math',
-                '/docs/nur/docs/builtins/os',
-                '/docs/nur/docs/builtins/process',
-                '/docs/nur/docs/builtins/shell',
-                '/docs/nur/docs/builtins/time',
-                '/docs/nur/docs/builtins/threading',
-                '/docs/nur/docs/builtins/unicode',
-                '/docs/nur/docs/builtins/ffi'
+                'docs/nur/docs/installation',
+                'docs/nur/docs/syntax',
+                'docs/nur/docs/data-types',
+                'docs/nur/docs/builtins/global',
+                'docs/nur/docs/builtins/io',
+                'docs/nur/docs/builtins/fs',
+                'docs/nur/docs/builtins/math',
+                'docs/nur/docs/builtins/os',
+                'docs/nur/docs/builtins/process',
+                'docs/nur/docs/builtins/shell',
+                'docs/nur/docs/builtins/time',
+                'docs/nur/docs/builtins/threading',
+                'docs/nur/docs/builtins/unicode',
+                'docs/nur/docs/builtins/ffi'
             ],
-            'bento': ['/docs/bento/readme'],
-            'qalam': ['/docs/qalam/readme'],
-            'tree-sitter-nur': ['/docs/tree-sitter-nur/readme']
+            'bento': ['docs/bento/readme'],
+            'qalam': ['docs/qalam/readme'],
+            'tree-sitter-nur': ['docs/tree-sitter-nur/readme']
         };
 
         return fileMap[projectId] || [];
     }
 
-    // Fetch markdown file
+    // Fetch markdown/html documentation file
     async function fetchMarkdown(filePath) {
+        const candidates = [
+            filePath,
+            `${filePath}.md`,
+            `${filePath}.html`,
+            `${filePath}/index.md`,
+            `${filePath}/index.html`
+        ];
+
         try {
-            const response = await fetch(filePath);
-            if (!response.ok) {
-                console.error(`Failed to fetch ${filePath}: ${response.status} ${response.statusText}`);
-                return null;
+            for (const candidate of candidates) {
+                const response = await fetch(candidate);
+                if (response.ok) {
+                    return await response.text();
+                }
             }
-            return await response.text();
+
+            console.error(`Failed to fetch documentation file. Tried: ${candidates.join(', ')}`);
+            return null;
         } catch (error) {
             console.error(`Error fetching ${filePath}:`, error);
             return null;
