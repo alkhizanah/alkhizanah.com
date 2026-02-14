@@ -1,10 +1,38 @@
 ---
 layout: default
 ---
-<article class="page wrap post-article fade-in">
-  <header>
-    <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date | date: "%B %d, %Y" }}{% if page.project %} · {{ page.project }}{% endif %}</p>
+
+<article class="post-article wrap fade-in">
+  <!-- Post Header -->
+  <header class="post-header">
+    <div class="post-header-meta">
+      <time class="post-date">{{ page.date | date: "%B %d, %Y" }}</time>
+      {% if page.project %}
+      <span class="post-project-badge">{{ page.project }}</span>
+      {% endif %}
+    </div>
+
+    <h1 class="post-title">{{ page.title }}</h1>
+
+    {% if page.author %}
+    <div class="post-author">
+      <span>By {{ page.author }}</span>
+    </div>
+    {% endif %}
   </header>
-  {{ content }}
+
+  <!-- Post Content -->
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <!-- Post Footer -->
+  <footer class="post-footer">
+    <a href="{{ '/posts/' | relative_url }}" class="back-to-posts">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M12 16l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to all posts
+    </a>
+  </footer>
 </article>

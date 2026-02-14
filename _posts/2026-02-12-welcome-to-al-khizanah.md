@@ -1,36 +1,72 @@
 ---
 layout: post
-title: "Sample Post for Testing"
+title: "Welcome to Al Khizanah"
 date: 2024-02-13
-project: Project Alpha
+author: Al Khizanah Team
+project: Platform
 ---
 
-This is a sample post to demonstrate the design and layout. You can use this to test how blog posts look with the new design.
+We're excited to introduce Al Khizanah, a collective of developers building practical tools, shared infrastructure, and open documentation for reliable software delivery.
 
-## Introduction
+## Our Mission
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+At Al Khizanah, we believe in building software that matters. Our focus is on creating tools and solutions that solve real problems and make developers' lives easier. We're committed to:
 
-## Main Content
+- **Open Source First**: All our projects are open source and available for the community
+- **Quality Over Quantity**: We prioritize well-tested, maintainable code
+- **Developer Experience**: Tools should be a joy to use, not a burden
+- **Community Driven**: We build together through collaboration and feedback
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## What We're Building
 
-### Subsection Example
+Our initial focus is on the **Nur programming language** and its ecosystem. Nur is designed for clarity and expressiveness, with powerful features for both systems and application development.
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.
+### Key Projects
 
-## Code Example
+**Nur** - A modern programming language that prioritizes developer experience without sacrificing performance.
 
-Here's how you might include code in your posts:
+**Fajr** - A fast and efficient build system that simplifies project compilation and dependency management.
 
-```python
-def hello_world():
-    print("Hello from Al Khizanah!")
-    return True
+**Way** - An innovative framework for building scalable applications with modern development practices.
+
+## Example: Hello World in Nur
+
+Here's a simple example to give you a taste of Nur's syntax:
+
+```nur
+fn main() {
+    print("Hello, World!")
+}
 ```
 
-## Conclusion
+Clean, readable, and straightforward. That's the Nur philosophy.
 
-This sample post demonstrates the clean, modern styling of the redesigned website. The typography is clear and readable, with good spacing and hierarchy.
+## Get Involved
 
-You can delete this file once you've confirmed the styling looks good!
+We're always looking for contributors, feedback, and ideas. Here's how you can get involved:
+
+1. **Explore the Docs**: Check out our [documentation](/alkhizanah.com/projects/) to learn more about each project
+2. **Try the Code**: Clone our repositories and experiment
+3. **Share Feedback**: Open issues, suggest features, or ask questions
+4. **Contribute**: Submit pull requests with improvements or new features
+
+## What's Next
+
+Over the coming weeks and months, we'll be sharing:
+
+- Technical deep-dives into Nur's design decisions
+- Tutorials and guides for getting started
+- Updates on new features and releases
+- Community highlights and contributor stories
+
+Stay tuned by watching our [GitHub organization](https://github.com/alkhizanah) or checking back here for updates.
+
+## Join the Community
+
+We're building something special, and we'd love for you to be part of it. Whether you're a seasoned developer or just getting started, there's a place for you in the Al Khizanah community.
+
+Let's build great software together.
+
+---
+
+*Questions or feedback? Open an issue in any of our project repositories or join the discussion on GitHub.*
