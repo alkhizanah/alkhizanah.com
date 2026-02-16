@@ -21,7 +21,7 @@ At Al Khizanah, we believe in building software that matters. Our focus is on cr
 
 We're always looking for contributors, feedback, and ideas. Here's how you can get involved:
 
-1. **Explore the Docs**: Check out our [documentation](/alkhizanah.com/projects/) to learn more about each project
+1. **Explore the Docs**: Check out our [documentation](/projects/) to learn more about each project
 2. **Try the Code**: Clone our repositories and experiment
 3. **Share Feedback**: Open issues, suggest features, or ask questions
 4. **Contribute**: Submit pull requests with improvements or new features
